@@ -3,7 +3,8 @@ var contrib = require('blessed-contrib')
 
 module.exports = function drawBoard (barData, donutData) {
   var screen = blessed.screen()
-  var grid = new contrib.grid({
+  var Grid = contrib.grid
+  var grid = new Grid({
     rows: 2,
     cols: 1,
     screen: screen
@@ -23,10 +24,6 @@ module.exports = function drawBoard (barData, donutData) {
     remainColor: 'black',
     yPadding: 2
   })
-  // var logo = grid.set(1, 1, 1, 1, contrib.picture, {
-  //   file: './buildkite.png',
-  //   onReady: ready
-  // })
 
   bar.setData(barData)
   donut.setData(donutData)

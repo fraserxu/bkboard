@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "./cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard"
   },
   "author": "Fraser Xu",
   "license": "MIT",
@@ -16,6 +16,10 @@
     "got": "^6.2.0",
     "lodash": "^4.6.1",
     "minimist": "^1.2.0",
-    "object-assign": "^4.0.1"
+    "object-assign": "^4.0.1",
+    "ora": "^0.2.0"
+  },
+  "devDependencies": {
+    "standard": "^6.0.8"
   }
 }

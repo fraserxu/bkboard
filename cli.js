@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var _ = require('lodash')
+var ora = require('ora')
 var argv = require('minimist')(process.argv.slice(2))
 
 var drawBoard = require('./graph.js')
@@ -10,6 +11,8 @@ var COLORS = {
   passed: 'green',
   failed: 'red'
 }
+
+var spinner = ora('Loading builds from Buildkite...')
 
 // list builds for a pipeline
 var from = argv._[0] || argv.f || argv.from || '2016-03-13T00:00:00Z'
@@ -58,6 +61,7 @@ function groupBuildsByCreator (builds) {
 getBuilds(org, pipeline, from, to, function (err, builds) {
   if (err) {
     console.log('err', err)
+    spinner.stop()
     process.exit(1)
   }
 
@@ -73,4 +77,5 @@ getBuilds(org, pipeline, from, to, function (err, builds) {
 
   drawBoard(buildsByCreator, buildsByState)
 })
-console.log('Start to fetching datas from Buildkite...')
+
+spinner.start()

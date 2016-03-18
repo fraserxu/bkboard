@@ -12,7 +12,6 @@ var BUILDKITE_API_KEY = config.buildkite.apikey || process.env.BUILDKITE_API_KEY
 
 if (!BUILDKITE_API_KEY) {
   throw new Error('BUILDKITE_API_KEY not found.')
-  process.exit(1)
 }
 
 function request (type, opts) {
