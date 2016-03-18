@@ -1,12 +1,25 @@
 {
   "name": "bkboard",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Buildkite build report dashboard in terminal.",
   "main": "index.js",
   "bin": "./cli.js",
   "scripts": {
     "test": "standard"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fraserxu/bkboard.git"
+  },
+  "keywords": [
+    "buildkite",
+    "terminal",
+    "api"
+  ],
+  "bugs": {
+    "url": "https://github.com/fraserxu/bkboard/issues"
+  },
+  "homepage": "https://github.com/fraserxu/bkboard",
   "author": "Fraser Xu",
   "license": "MIT",
   "dependencies": {
