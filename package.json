@@ -1,0 +1,20 @@
+{
+  "name": "bkboard",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fraser Xu",
+  "license": "MIT",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^3.5.4",
+    "git-config": "0.0.7",
+    "got": "^6.2.0",
+    "lodash": "^4.6.1",
+    "minimist": "^1.2.0",
+    "object-assign": "^4.0.1"
+  }
+}
