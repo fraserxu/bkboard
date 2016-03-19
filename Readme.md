@@ -47,6 +47,10 @@ $ npm install bkboard -g
 
 Please make sure you get Buildkite api_token from https://buildkite.com/user/api-access-tokens and set it with `git config` or pass it to `process.env.BUILDKITE_API_KEY`.
 
+**Note:** Please make sure you have the `Read Builds (read_builds)` permission enable to be able to read builds from Buildkite API.
+
+> Permission to list and retrieve details of builds
+
 ### Exampe
 
 ```sh
