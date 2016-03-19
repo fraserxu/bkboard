@@ -23,13 +23,11 @@ var bkboard = require('bkboard')
 
 /**
  * Get the builds data from a pipeline
- * @param  {String}      Org name
- * @param  {String}      Pipeline name
- * @param  {String}      Start time
- * @param  {String}      End time
+ * @param  {String} The token string
+ * @param  {Object} The opts object contains 'from', 'to', 'org', 'pipeline'
  * @param  {Function}    Callback function with `err, builds`
  */
-bkboard(org, pipeline, from, to, function (err, builds) {
+bkboard(token, opts, function (err, builds) {
   if (err) {
     console.log('err', err)
     return
@@ -37,6 +35,17 @@ bkboard(org, pipeline, from, to, function (err, builds) {
 
   drawBoard(builds)
 })
+```
+
+Example `opts` object:
+
+```JavaScript
+{
+  from: '2016-03-13T00:00:00Z',
+  to: '2016-03-18T00:00:00Z',
+  org: 'xxx',
+  pipeline: 'xxx'
+}
 ```
 
 ### Usage from terminal

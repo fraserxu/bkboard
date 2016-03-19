@@ -1,44 +1,32 @@
 var qs = require('querystring')
-var got = require('got')
-
+var linkParser = require('parse-link-header')
+var axios = require('axios')
 var objectAssign = require('object-assign')
-var gitConfig = require('git-config')
 
-var utils = require('./utils')
-
-var config = gitConfig.sync()
 var BUILDKITE_API_ENDPOINT = 'https://api.buildkite.com/v2/'
-var BUILDKITE_API_KEY = config.buildkite.apikey || process.env.BUILDKITE_API_KEY
 
-if (!BUILDKITE_API_KEY) {
-  throw new Error('BUILDKITE_API_KEY not found.')
-}
+module.exports = function getBuilds (token, opts, cb) {
+  if (!token) throw new Error('Token is required.')
 
-function request (type, opts) {
-  var params = objectAssign({
-    access_token: BUILDKITE_API_KEY
-  }, opts)
-  return got(BUILDKITE_API_ENDPOINT + type + '?' + qs.stringify(params), {
-    json: true
-  })
-}
+  function request (endpoint, opts) {
+    var params = objectAssign({
+      access_token: token
+    }, opts)
+    return axios(BUILDKITE_API_ENDPOINT + endpoint + '?' + qs.stringify(params))
+  }
 
-module.exports = function getBuilds (org, pipeline, from, to, cb) {
-  var MARKET_BUILDS_URL = 'organizations/' + org + '/pipelines/' + pipeline + '/builds'
+  var MARKET_BUILDS_URL = 'organizations/' + opts.org + '/pipelines/' + opts.pipeline + '/builds'
   request(MARKET_BUILDS_URL, {
-    'created_from': from,
-    'created_to': to,
+    'created_from': opts.from,
+    'created_to': opts.to,
     'per_page': 50
   }).then(function (res) {
-    var builds = res.body
-
+    var builds = res.data
     function requestNext (res) {
-      if (res.headers.link && utils.formatLink(res.headers.link).next) {
-        var nextLink = utils.formatLink(res.headers.link).next
-        got(nextLink, {
-          json: true
-        }).then(function (res) {
-          builds = builds.concat(res.body)
+      if (res.headers.link && linkParser(res.headers.link).next) {
+        var nextLink = linkParser(res.headers.link).next.url
+        axios(nextLink).then(function (res) {
+          builds = builds.concat(res.data)
           requestNext(res)
         })
       } else {

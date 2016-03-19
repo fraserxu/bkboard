@@ -3,6 +3,7 @@
 var _ = require('lodash')
 var ora = require('ora')
 var argv = require('minimist')(process.argv.slice(2))
+var gitConfig = require('git-config')
 
 var drawBoard = require('./graph.js')
 var getBuilds = require('./index.js')
@@ -12,7 +13,13 @@ var COLORS = {
   failed: 'red'
 }
 
+var config = gitConfig.sync()
+var BUILDKITE_API_KEY = config.buildkite.apikey || process.env.BUILDKITE_API_KEY
 var spinner = ora('Loading builds from Buildkite...')
+
+if (!BUILDKITE_API_KEY) {
+  throw new Error('BUILDKITE_API_KEY not found.')
+}
 
 // list builds for a pipeline
 var from = argv._[0] || argv.f || argv.from || '2016-03-13T00:00:00Z'
@@ -58,7 +65,12 @@ function groupBuildsByCreator (builds) {
   }
 }
 
-getBuilds(org, pipeline, from, to, function (err, builds) {
+getBuilds(BUILDKITE_API_KEY, {
+  org: org,
+  pipeline: pipeline,
+  from: from,
+  to: to
+}, function (err, builds) {
   if (err) {
     console.log('err', err)
     spinner.stop()

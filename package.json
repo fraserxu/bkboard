@@ -33,6 +33,7 @@
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
     "ora": "^0.2.0",
+    "parse-link-header": "^0.4.1",
     "yo-yo": "^1.1.1"
   },
   "devDependencies": {
