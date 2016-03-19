@@ -5,7 +5,8 @@
   "main": "index.js",
   "bin": "./cli.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "start": "wzrd web.js:bundle.js"
   },
   "repository": {
     "type": "git",
@@ -23,16 +24,19 @@
   "author": "Fraser Xu",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.9.1",
     "blessed": "^0.1.81",
     "blessed-contrib": "^3.5.4",
+    "d3-bar": "github:tj/d3-bar",
     "git-config": "0.0.7",
-    "got": "^6.2.0",
     "lodash": "^4.6.1",
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
-    "ora": "^0.2.0"
+    "ora": "^0.2.0",
+    "yo-yo": "^1.1.1"
   },
   "devDependencies": {
-    "standard": "^6.0.8"
+    "standard": "^6.0.8",
+    "wzrd": "^1.3.1"
   }
 }
